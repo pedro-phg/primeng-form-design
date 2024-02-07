@@ -1,0 +1,35 @@
+span {
+    margin-top: 24px;
+    margin-bottom: 6px;
+}
+
+.p-invalid {
+    margin: 0;
+}
+
+.form {
+    &__row {
+        margin-bottom: 48px;
+
+        .options {
+            display: flex;
+            gap: 24px;
+
+            .option {
+                display: flex;
+                gap: 6px;
+            }
+        }
+    }
+}
+
+.squads {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.passwords {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}

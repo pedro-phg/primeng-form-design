@@ -1,0 +1,70 @@
+<form [formGroup]="stepForm" class="form">
+
+    <h1>Informações</h1>
+
+    <div class="form__row">
+        <app-register-step-header stepTitle="1. Dados do Usuário"
+            description="Realize o preenchimento das informações abaixo para prosseguirmos com seu cadastro."></app-register-step-header>
+        <span class="p-float-label">
+            <input formControlName="username" pInputText id="username"
+                class="{{ (username?.invalid) && (username?.touched) ? 'ng-invalid ng-dirty' : '' }}"
+                (blur)="onBlur()" />
+            <label for="username">Usuário de Rede</label>
+        </span>
+        @if (username?.invalid && username?.touched) {
+        <small id="email-help" class="p-invalid">Digite um usuário de rede válido.</small>
+        }
+    </div>
+
+    <div class="form__row">
+        <app-register-step-header stepTitle="2. Perfil"
+            description="Selecione um perfil de sua preferência."></app-register-step-header>
+        <div class="options">
+            @for (option of userRoleOptions; track $index) {
+            <div class="option">
+                <p-radioButton [inputId]="option.value" [value]="option.value" formControlName="role"
+                    (onClick)="onBlur()"></p-radioButton>
+                <label [for]="option.value" class="ml-2">{{ option.option }}</label>
+            </div>
+            }
+        </div>
+        @if (role?.invalid && role?.touched) {
+        <small id="email-help" class="p-invalid">É necessário selecionar um perfil de sua preferência.</small>
+        }
+    </div>
+
+    @if ( selectedRole == 'manager') {
+    <div class="form__row">
+        <app-register-step-header stepTitle="3. Squads"
+            description="Selecione as squads que deseja monitorar na plataforma."></app-register-step-header>
+        <div class="squads">
+            @for (squad of squadsInfo; track $index) {
+            <label>
+                <input type="checkbox" [checked]="squad.isSelected" [value]="squad.id"
+                    (change)="onCheckboxChange($event)" (blur)="onBlur()">
+                {{ squad.name }}
+            </label>
+            }
+        </div>
+    </div>
+    }
+
+    <div class="form__row">
+        <app-register-step-header stepTitle="{{ selectedRole == 'manager' ? '4. Senha' : '3. Senha'}}"
+            description="Insira sua senha de usuário."></app-register-step-header>
+        <div class="passwords">
+            <p-password formControlName="password1" [placeholder]="'Senha'" [promptLabel]="'Digite sua Senha'"
+                [weakLabel]="'Fraca'" [mediumLabel]="'Média'" [strongLabel]="'Forte'" [toggleMask]="true"
+                (onBlur)="onBlur()" class="{{ stepForm.hasError('PasswordNoMatch') && (stepForm.dirty || stepForm.touched) ? 'ng-invalid ng-dirty' : '' }}"></p-password>
+            <p-password formControlName="password2" [placeholder]="'Confirme sua senha'"
+                [promptLabel]="'Confirme sua Senha'" [weakLabel]="'Fraca'" [mediumLabel]="'Média'"
+                [strongLabel]="'Forte'" [toggleMask]="true" (onBlur)="onBlur()" class="{{ stepForm.hasError('PasswordNoMatch') && (stepForm.dirty || stepForm.touched) ? 'ng-invalid ng-dirty' : '' }}"></p-password>
+        </div>
+        @if (stepForm.hasError('PasswordNoMatch') && (stepForm.dirty || stepForm.touched)) {
+        <small id="email-help" class="p-invalid">As senhas necesitam ser iguais.</small>
+        }
+    </div>
+
+
+    <app-register-step-buttons-bar [currentStep]="currentStep" [nextDisabled]="!stepForm.valid"></app-register-step-buttons-bar>
+</form>

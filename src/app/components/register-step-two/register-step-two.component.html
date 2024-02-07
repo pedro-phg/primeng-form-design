@@ -1,0 +1,7 @@
+<app-register-step-header [stepTitle]="'Verifique suas informações'"
+    [description]="'Verifique se as informações fornecidas estão corretas. Volte uma etapa caso algo esteja errado.'"></app-register-step-header>
+<div class="confirm__container">
+    <app-profile-confirmation-bar [pictureUrl]="pictureUrl" [profileName]="profileName"
+        [profileMail]="profileMail"></app-profile-confirmation-bar>
+</div>
+<app-register-step-buttons-bar [currentStep]=2 [nextDisabled]="false"></app-register-step-buttons-bar>

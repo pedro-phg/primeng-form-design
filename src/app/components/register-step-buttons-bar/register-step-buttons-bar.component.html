@@ -1,0 +1,15 @@
+<div class="buttons">
+    <div class="buttons-bar">
+        @if (currentStep > 1) {
+        <div>
+            <a rel="noopener noreferrer" class="font-bold" (click)="previousStep($event)">Voltar</a>
+        </div>
+        }
+        @if (nextDisabled) {
+        <p-button (click)="toastMessage()" [disabled]="false" severity="primary">Próximo</p-button>
+        } @else {
+        <a rel="noopener noreferrer" class="p-button font-bold" (click)="nextStep($event)">Próximo</a>
+        }
+        <p-toast></p-toast>
+    </div>
+</div>
